@@ -1,0 +1,56 @@
+<odoo>
+
+    <record id="res_partner_extended_view_tree_inherit" model="ir.ui.view">
+        <field name="name">res.partner.extended.view.tree.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='country_id']" position="after">
+                <field name="is_vip"/>
+                <field name="loyalty_points"/>
+                <field name="preferred_language"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Res Partner Extended Form View -->
+    <record id="res_partner_extended_view_form" model="ir.ui.view">
+        <field name="name">res.partner.extended.view.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='misc']" position="after">
+                <group string="Other Info" name="other_info" priority="5">
+                    <group>
+                        <field name="active" invisible="1"/>
+                        <field name="secondary_email"/>
+                        <field name="social_linkedin"/>
+                        <field name="date_first_contact"/>
+                        <field name="loyalty_points"/>
+                        <field name="partner_rating"/>
+                    </group>
+                    <group>
+                        <field name="social_facebook"/>
+                        <field name="social_twitter"/>
+                        <field name="preferred_language"/>
+                        <field name="is_vip"/>
+                        <field name="birthday_reminder"/>
+<!--                        <field name="region"/>-->
+                        <field name="channel_ids" invisible="1"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_res_partner_extended" model="ir.actions.act_window">
+        <field name="name">Extended Partners</field>
+        <field name="res_model">res.partner.extended</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('res_partner_extended_view_tree_inherit')})]"/>
+    </record>
+</odoo>
